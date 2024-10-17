@@ -16,7 +16,7 @@ WORKDIR /app
 COPY --from=build /out .
 
 # Expor a porta 80 para acessar o serviço
-EXPOSE 80
+EXPOSE 5007
 
 # Comando para iniciar a aplicação
 ENTRYPOINT ["dotnet", "shop.manoel.api.dll"]
