@@ -37,7 +37,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\tasks.api\shop.manoel.api.csproj" />
+    <ProjectReference Include="..\shop.manoel.api\shop.manoel.api.csproj" />
   </ItemGroup>
 
   <ItemGroup>

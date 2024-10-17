@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\tasks.service\shop.manoel.service.csproj" />
+    <ProjectReference Include="..\shop.manoel.service\shop.manoel.service.csproj" />
   </ItemGroup>
 
 </Project>
