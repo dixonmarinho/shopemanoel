@@ -1,9 +1,0 @@
-Criando Migracao
-
-1 - Va para a pasta da solucao
-2 - Execute o comando abaixo
-	dotnet ef migrations add Initial --project shop.manoel.data --startup-project shop.manoel.api
-
-Atualizando o banco de dados
-1 - Execute o comando abaixo
-	dotnet ef database update --project shop.manoel.data --startup-project shop.manoel.api
