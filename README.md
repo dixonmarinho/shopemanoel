@@ -66,9 +66,8 @@ O projeto segue uma arquitetura em camadas, com separação clara de responsabil
 
 ### Dados de acesso
 
-1 - Para acessar o end point, primeiro você deve logar com os seguintes dados
-    usuario : user
-    senha : 123456
+1 - Para acessar o end point, primeiro você deve logar com os seguintes dados : 
+usuario : user / senha : 123456
 
 2 - Pegue o token de retorno e coloque no cabecalho do SWAGGER
 3 - OBS : Na esqueca de colocar Bearer antes do token
