@@ -70,7 +70,7 @@ O projeto segue uma arquitetura em camadas, com separação clara de responsabil
 usuario : user / senha : 123456
 
 2 - Pegue o token de retorno e coloque no cabecalho do SWAGGER
-3 - OBS : Na esqueca de colocar Bearer antes do token
+3 - OBS : Não esqueça de colocar Bearer antes do token
 
 ### Observações
 
