@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System.Globalization;
 using shop.manoel.shared.Interfaces;
+using System.Globalization;
 
 namespace shop.manoel.service
 {
@@ -51,8 +51,11 @@ namespace shop.manoel.service
             });
             //}
 
-            //app.UseHttpsRedirection();
+            app.UseRouting();
+
+            app.UseAuthentication();
             app.UseAuthorization();
+
             app.MapControllers();
 
             var log = app.Services.GetRequiredService<IServiceLog>();

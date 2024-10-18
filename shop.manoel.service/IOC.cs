@@ -9,18 +9,17 @@ namespace shop.manoel.service
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
             services
+                .AddCustomCors()
                 .ChangeCulture()
                 .AddGeneralServices()
-                .AddAuthorization()
                 .AddSwaggerService()
                 .AddLogService()
                 //.AddIdentityServices()
-                .AddCustomCors()
                 .AddShopService()
-
                 // Ativando o MVC
-                .AddControllers();
+                .AddAuth();
 
+            services.AddControllers();
             return services;
         }
     }

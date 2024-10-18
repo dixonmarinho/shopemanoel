@@ -12,7 +12,7 @@ namespace shop.manoel.service.DI
                                         builder =>
                                         {
                                             builder
-                                                .SetIsOriginAllowed((host) => new Uri(host).Host == "localhost")
+                                                //.SetIsOriginAllowed((host) => new Uri(host).Host == "localhost")
                                                 .AllowAnyOrigin()
                                                 .AllowAnyMethod()
                                                 .AllowAnyHeader();

@@ -9,6 +9,7 @@ namespace shop.manoel.service.DI
         public static IServiceCollection AddShopService(this IServiceCollection services)
         {
             services
+                .AddScoped<IServiceAuth, ServiceAuth>()
                 .AddScoped<IServiceOrder, ServiceOrder>()
                 ;
             return services;

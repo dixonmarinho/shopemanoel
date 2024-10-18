@@ -9,7 +9,7 @@ ARG FINAL_BASE_IMAGE=${LAUNCHING_FROM_VS:+aotdebug}
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 USER app
 WORKDIR /app
-EXPOSE 8080
+EXPOSE 5001
 
 
 # This stage is used to build the service project
@@ -20,7 +20,7 @@ RUN apt-get update \
     clang zlib1g-dev
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["shop.manoel.api/shop.manoel.api.csproj", "shop.manoel.api/"]
+COPY ["./shop.manoel.api/shop.manoel.api.csproj", "shop.manoel.api/"]
 RUN dotnet restore "./shop.manoel.api/shop.manoel.api.csproj"
 COPY . .
 WORKDIR "/src/shop.manoel.api"
@@ -32,8 +32,8 @@ ARG BUILD_CONFIGURATION=Release
 RUN dotnet publish "./shop.manoel.api.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=true
 
 # This stage is used as the base for the final stage when launching from VS to support debugging in regular mode (Default when not using the Debug configuration)
-FROM base as aotdebug
-USER root
+# FROM base as aotdebug
+# USER root
 # Install GDB to support native debugging
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
@@ -43,6 +43,6 @@ USER app
 # This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
 FROM ${FINAL_BASE_IMAGE:-mcr.microsoft.com/dotnet/runtime-deps:8.0} AS final
 WORKDIR /app
-EXPOSE 8080
+EXPOSE 5001
 COPY --from=publish /app/publish .
 ENTRYPOINT ["./shop.manoel.api"]
