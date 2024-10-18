@@ -1,67 +1,78 @@
-## Projeto Lista de Tarefas - 80% Completo
-## Este projeto fo concebido do Zero o que demandou certo tempo
+## Shop Manoel - API: Documentação Detalhada
 
-**Back-end:**
+Este projeto implementa uma API RESTful para a "Loja do Seu Manoel", utilizando ASP.NET Core. A API fornece funcionalidades para autenticação de usuários e cálculo do empacotamento ideal de produtos em caixas para pedidos.
 
-* **.NET 8:**  A mais recente versão do framework .NET, da Microsoft, para desenvolvimento de aplicações web, desktop, mobile e jogos. Oferece alto desempenho, segurança e produtividade.
-* **SQL Server 2022:** Sistema de gerenciamento de banco de dados relacional (RDBMS) da Microsoft, utilizado para armazenar e recuperar dados da aplicação.
+### Arquitetura do Projeto
 
-**Bibliotecas .NET:**
+O projeto segue uma arquitetura em camadas, com separação clara de responsabilidades:
 
-* **Microsoft.EntityFrameworkCore.Design:** Ferramentas de design-time para o Entity Framework Core, facilitando a criação e gerenciamento do modelo de dados.
-* **Microsoft.AspNetCore.Identity:** Framework para gerenciamento de usuários, autenticação e autorização em aplicações ASP.NET Core.
-* **Microsoft.AspNetCore.Identity.EntityFrameworkCore:**  Integração do ASP.NET Core Identity com o Entity Framework Core, permitindo armazenar dados de usuários em um banco de dados.
-* **Microsoft.EntityFrameworkCore:**  Framework ORM (Object-Relational Mapping) que permite interagir com o banco de dados usando objetos C# ao invés de escrever código SQL diretamente.
-* **Microsoft.EntityFrameworkCore.SqlServer:**  Provedor do Entity Framework Core para SQL Server, permitindo a utilização do Entity Framework com bancos de dados SQL Server.
+- **shop.manoel.api:** Contém os controladores da API, responsáveis por receber as requisições HTTP e retornar as respostas.
+- **shop.manoel.service:** Contém a lógica de negócio da aplicação, incluindo serviços para autenticação e cálculo de empacotamento.
+- **shop.manoel.shared:** Contém modelos de dados compartilhados entre as camadas, interfaces de serviço e classes utilitárias.
+- **shop.manoel.test:** Contém os testes unitários da aplicação.
 
-**Camadas da Aplicação:**
+### Funcionalidades da API
 
-* **tasks.api:** Camada responsável pela API REST da aplicação, que expõe endpoints para interação com o front-end.
-* **tasks.data:** Camada de acesso a dados, que contém a lógica para interagir com o banco de dados (repositórios, etc.).
-* **tasks.service:** Camada de serviços, que contém a lógica de negócio da aplicação.
-* **tasks.shared:** Camada que contém código compartilhado entre as outras camadas, como DTOs (Data Transfer Objects) e interfaces.
-* **tasks.test:** Camada que contém os testes unitários e de integração da aplicação.
+#### Autenticação
 
-**Front-end (Angular):**
+- **POST /Auth/Login:** Permite que um usuário faça login na API, fornecendo seu nome de usuário e senha. Em caso de sucesso, a API retorna um token JWT que deve ser utilizado para autenticar as requisições subsequentes.
 
-**Bibliotecas de Terceiros:**
+#### Pedidos
 
-* **sweetalert2:** Biblioteca para exibir alertas e caixas de diálogo personalizadas de forma fácil e atraente.
-* **rxjs:**  Biblioteca para programação reativa, que permite lidar com fluxos de dados assíncronos de forma eficiente.
+- **POST /Order:** Permite calcular a caixa ideal para um conjunto de produtos em um pedido. A API recebe uma lista de pedidos, cada um contendo uma lista de produtos com suas dimensões. A API retorna uma lista de caixas ideais para cada pedido, considerando as dimensões dos produtos e as caixas disponíveis.
+
+### Implementação Detalhada
+
+#### Autenticação (shop.manoel.service.Services.ServiceAuth)
+
+- A autenticação é feita utilizando JWT (JSON Web Token).
+- O serviço `ServiceAuth` é responsável por gerar e validar os tokens JWT.
+- A configuração da autenticação, incluindo a chave secreta e as informações do emissor e da audiência, é feita no arquivo `appsettings.json`.
+- O middleware de autenticação JWT é configurado em `shop.manoel.service.DI.DI.AddAuth`.
+
+#### Cálculo de Empacotamento (shop.manoel.service.Services.ServiceOrder)
+
+- O serviço `ServiceOrder` é responsável por calcular a caixa ideal para um conjunto de produtos.
+- O algoritmo de cálculo considera as dimensões dos produtos e as caixas disponíveis, testando diferentes orientações de empilhamento para encontrar a caixa que melhor se adapta aos produtos.
+- As dimensões das caixas disponíveis são configuradas no construtor do `ServiceOrder`.
+- O método `ProductBoxCalc` realiza o cálculo da caixa ideal para um conjunto de produtos.
+
+### Testes Unitários (shop.manoel.test)
+
+- O projeto inclui testes unitários para as funcionalidades de autenticação e cálculo de empacotamento.
+- Os testes utilizam a biblioteca xUnit.
+- A classe `Base_Service_Test` fornece uma base para os testes, configurando a aplicação e os serviços.
+- A classe `Fake_Data_Test` fornece dados de teste para os testes unitários.
+
+### Dependências
+
+- ASP.NET Core
+- JWT
+- Serilog
+- Swagger
+- xUnit
+
+### Como Executar o Projeto
+
+1. Clone o repositório do GitHub.
+2. Abra o projeto no Visual Studio ou na sua IDE preferida.
+3. Execute o projeto.
+4. Acesse a API através do Swagger em `http://localhost:5001/swagger`.
+
+### Executando o DockFile
+
+1. Execute o comando `docker build -t shopmanoelapi .` para criar a imagem do container.
+2. Execute o comando `docker run -d -p 5001:5001 shopmanoelapi` para rodar o container.
+
+### Observações
+
+- Este projeto é um exemplo de implementação de uma API RESTful para a "Loja do Seu Manoel".
+- O algoritmo de cálculo de empacotamento pode ser otimizado para cenários mais complexos.
+- A segurança da API pode ser aprimorada com a implementação de medidas adicionais, como HTTPS e autorização baseada em roles.
+
+### Contribuições
+
+Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou pull requests no repositório do GitHub.
 
 
-**Observação:** As demais bibliotecas listadas no `package.json` do Angular (como `@angular/core`, `@angular/router`, etc.) são parte do próprio framework Angular e não são consideradas bibliotecas de terceiros.
-
-**Resumo:**
-
-O projeto utiliza uma arquitetura moderna e robusta, com separação clara de responsabilidades entre as camadas da aplicação. O back-end em .NET 8 com Entity Framework Core oferece alto desempenho e segurança, enquanto o front-end em Angular com bibliotecas como SweetAlert2 e RxJS proporciona uma interface de usuário moderna e responsiva. A utilização de testes unitários e de integração garante a qualidade e a confiabilidade do código.
-
-**Executando o Projeto:**
-1 - Base de Dados
-
-1.1 - Entre dentro da aplicacao back pasta task.api, edit o arquivo appsettings.json e mude a string de conexao para o local do banco de dados correto
-
-1.2 - Volte para a pasta raiza back e digite o comando abaixo:
-dotnet ef migrations add Initial --project tasks.data --startup-project tasks.api
-
-Caso haja um erro na base na hora de restaurar a migracao, devido a problemas na ferramente, use o script DDL ba pasta raiza do GIT para criar uma base com a estrutura correta
-
-
-1.3 - Digite o comando abaixo para rodar o servidor
-dotnet run
-
-3 - Em um novo terminal, entre na aplicao front e digite o comando abaixo para exectar o client:
-ng serve
-
-
-Tarefas as ralizar :
-
-1 - Edicao de Tarefas e mudança de Status
-2 - Aplicacao Responsividade
-3 - Finalizar Paginacao
-4 - Login e Logout back - No back so falta criacao da CONTROLLER 
-5 - Ligin e Logout Aplicacao Front - Linkar com o BACK
-
-
-
-
+**Espero que esta documentação detalhada seja útil para entender o projeto "Shop Manoel - API".**
