@@ -64,6 +64,15 @@ O projeto segue uma arquitetura em camadas, com separação clara de responsabil
 1. Execute o comando `docker build -t shopmanoelapi .` para criar a imagem do container.
 2. Execute o comando `docker run -d -p 5001:5001 shopmanoelapi` para rodar o container.
 
+### Dados de acesso
+
+1 - Para acessar o end point, primeiro você deve logar com os seguintes dados
+    usuario : user
+    senha : 123456
+
+2 - Pegue o token de retorno e coloque no cabecalho do SWAGGER
+3 - OBS : Na esqueca de colocar Bearer antes do token
+
 ### Observações
 
 - Este projeto é um exemplo de implementação de uma API RESTful para a "Loja do Seu Manoel".
